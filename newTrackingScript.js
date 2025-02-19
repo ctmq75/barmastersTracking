@@ -2099,4 +2099,37 @@ $wc_leads.tracking = $wc_leads.tracking || {
       }
     }
   },
+  (function() {
+    function getCookie(name) {
+        var match = document.cookie.match(new RegExp('(^|;\\s*)' + name + '=([^;]*)'));
+        return match ? decodeURIComponent(match[2]) : null;
+    }
+
+    // Get the fbc and fbp cookie values
+    var fbc = getCookie('_fbc'); // Facebook Click ID cookie
+    var fbp = getCookie('_fbp'); // Facebook Browser ID cookie
+
+    // Function to update the URL with parameters
+    function updateUrlParams(params) {
+        var url = new URL(window.location.href);
+        let updated = false;
+
+        Object.keys(params).forEach(key => {
+            if (params[key]) {
+                url.searchParams.set(key, params[key]);
+                updated = true;
+            }
+        });
+
+        // Only update the URL if at least one parameter was added
+        if (updated) {
+            window.history.replaceState(null, '', url.toString());
+        }
+    }
+
+    // Run the function automatically
+    updateUrlParams({ fbc, fbp });
+
+})();
+
 };
