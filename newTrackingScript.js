@@ -202,8 +202,8 @@ function wc_create_init(cookie_data) {
     var wbraid = bauwiruxzontakyuoxkw("wbraid");
     var msclkid = bauwiruxzontakyuoxkw("msclkid");
     var fbclid = bauwiruxzontakyuoxkw("fbclid");
-    var fbc = bauwiruxzontakyuoxkw("_fbc");
-    var fbp = bauwiruxzontakyuoxkw("_fbp");
+    //var fbc = bauwiruxzontakyuoxkw("_fbc");
+    //var fbp = bauwiruxzontakyuoxkw("_fbp");
     var utm_source = bauwiruxzontakyuoxkw("utm_source");
     if (force_utm === "true" && utm_source) {
       source = utm_source;
@@ -361,8 +361,8 @@ function wc_create_init(cookie_data) {
         gid === existing_cookie[5] &&
         msclkid === existing_cookie[8] &&
         fbclid === existing_cookie[9] &&
-        fbc === existing_cookie[10] &&
-        fbp === existing_cookie[11]
+        //fbc === existing_cookie[10] &&
+        //fbp === existing_cookie[11]
       ) {
         return;
       }
@@ -388,9 +388,9 @@ function wc_create_init(cookie_data) {
       "+..+" +
       encodeURIComponent(fbclid);
       "+..+" +
-      encodeURIComponent(fbc);
-      "+..+" +
-      encodeURIComponent(fbp);
+      //encodeURIComponent(fbc);
+      //"+..+" +
+      //encodeURIComponent(fbp);
   } else {
     ilnfnxrqyrwnwhzydizj = cookie_data;
   }
@@ -1966,8 +1966,8 @@ function wc_iframe_ypbib(url, id) {
     keyword = "",
     gclid = "",
     msclkid = "",
-    fbc = "",
-    fbp = "",
+    //fbc = "",
+    //fbp = "",
     fbclid = "";
   cookie = oqhaqzwnbjgcpycneryg("wc_client");
   if (cookie) {
@@ -1980,8 +1980,8 @@ function wc_iframe_ypbib(url, id) {
     if (cookie_parts[5]) gclid = "gclid=" + cookie_parts[5];
     if (cookie_parts[8]) msclkid = "msclkid=" + cookie_parts[8];
     if (cookie_parts[9]) fbclid = "fbclid=" + cookie_parts[9];
-    if (cookie_parts[10]) fbc = "_fbc=" + cookie_parts[10];
-    if (cookie_parts[11]) fbp = "_fbp=" + cookie_parts[11];
+    //if (cookie_parts[10]) fbc = "_fbc=" + cookie_parts[10];
+    //if (cookie_parts[11]) fbp = "_fbp=" + cookie_parts[11];
     if (source) {
       if (final_url.indexOf("?") > -1) final_url += "&";
       else final_url += "?";
@@ -2022,16 +2022,16 @@ function wc_iframe_ypbib(url, id) {
       else final_url += "?";
       final_url += fbclid;
     }
-    if (fbc) {
-      if (final_url.indexOf("?") > -1) final_url += "&";
-      else final_url += "?";
-      final_url += fbc;
-    }
-    if (fbp) {
-      if (final_url.indexOf("?") > -1) final_url += "&";
-      else final_url += "?";
-      final_url += fbp;
-    }
+    // if (fbc) {
+    //   if (final_url.indexOf("?") > -1) final_url += "&";
+    //   else final_url += "?";
+    //   final_url += fbc;
+    // }
+    // if (fbp) {
+    //   if (final_url.indexOf("?") > -1) final_url += "&";
+    //   else final_url += "?";
+    //   final_url += fbp;
+    // }
   }
   document.getElementById(id).src = final_url;
 }
@@ -2099,37 +2099,5 @@ $wc_leads.tracking = $wc_leads.tracking || {
       }
     }
   },
-  (function() {
-    function getCookie(name) {
-        var match = document.cookie.match(new RegExp('(^|;\\s*)' + name + '=([^;]*)'));
-        return match ? decodeURIComponent(match[2]) : null;
-    }
-
-    // Get the fbc and fbp cookie values
-    var fbc = getCookie('_fbc'); // Facebook Click ID cookie
-    var fbp = getCookie('_fbp'); // Facebook Browser ID cookie
-
-    // Function to update the URL with parameters
-    function updateUrlParams(params) {
-        var url = new URL(window.location.href);
-        let updated = false;
-
-        Object.keys(params).forEach(key => {
-            if (params[key]) {
-                url.searchParams.set(key, params[key]);
-                updated = true;
-            }
-        });
-
-        // Only update the URL if at least one parameter was added
-        if (updated) {
-            window.history.replaceState(null, '', url.toString());
-        }
-    }
-
-    // Run the function automatically
-    updateUrlParams({ fbc, fbp });
-
-})();
 
 };
