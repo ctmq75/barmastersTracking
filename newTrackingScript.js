@@ -202,8 +202,6 @@ function wc_create_init(cookie_data) {
     var wbraid = bauwiruxzontakyuoxkw("wbraid");
     var msclkid = bauwiruxzontakyuoxkw("msclkid");
     var fbclid = bauwiruxzontakyuoxkw("fbclid");
-    //var fbc = bauwiruxzontakyuoxkw("_fbc");
-    //var fbp = bauwiruxzontakyuoxkw("_fbp");
     var utm_source = bauwiruxzontakyuoxkw("utm_source");
     if (force_utm === "true" && utm_source) {
       source = utm_source;
@@ -360,9 +358,7 @@ function wc_create_init(cookie_data) {
         term === existing_cookie[4] &&
         gid === existing_cookie[5] &&
         msclkid === existing_cookie[8] &&
-        fbclid === existing_cookie[9] &&
-        //fbc === existing_cookie[10] &&
-        //fbp === existing_cookie[11]
+        fbclid === existing_cookie[9]
       ) {
         return;
       }
@@ -387,10 +383,6 @@ function wc_create_init(cookie_data) {
       encodeURIComponent(msclkid) +
       "+..+" +
       encodeURIComponent(fbclid);
-      "+..+" +
-      //encodeURIComponent(fbc);
-      //"+..+" +
-      //encodeURIComponent(fbp);
   } else {
     ilnfnxrqyrwnwhzydizj = cookie_data;
   }
@@ -1966,8 +1958,6 @@ function wc_iframe_ypbib(url, id) {
     keyword = "",
     gclid = "",
     msclkid = "",
-    //fbc = "",
-    //fbp = "",
     fbclid = "";
   cookie = oqhaqzwnbjgcpycneryg("wc_client");
   if (cookie) {
@@ -1980,8 +1970,6 @@ function wc_iframe_ypbib(url, id) {
     if (cookie_parts[5]) gclid = "gclid=" + cookie_parts[5];
     if (cookie_parts[8]) msclkid = "msclkid=" + cookie_parts[8];
     if (cookie_parts[9]) fbclid = "fbclid=" + cookie_parts[9];
-    //if (cookie_parts[10]) fbc = "_fbc=" + cookie_parts[10];
-    //if (cookie_parts[11]) fbp = "_fbp=" + cookie_parts[11];
     if (source) {
       if (final_url.indexOf("?") > -1) final_url += "&";
       else final_url += "?";
@@ -2022,16 +2010,6 @@ function wc_iframe_ypbib(url, id) {
       else final_url += "?";
       final_url += fbclid;
     }
-    // if (fbc) {
-    //   if (final_url.indexOf("?") > -1) final_url += "&";
-    //   else final_url += "?";
-    //   final_url += fbc;
-    // }
-    // if (fbp) {
-    //   if (final_url.indexOf("?") > -1) final_url += "&";
-    //   else final_url += "?";
-    //   final_url += fbp;
-    // }
   }
   document.getElementById(id).src = final_url;
 }
@@ -2099,5 +2077,43 @@ $wc_leads.tracking = $wc_leads.tracking || {
       }
     }
   },
-
 };
+
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("Script is running CM after page load");
+
+    function getCookie(name) {
+        let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        return match ? decodeURIComponent(match[2]) : null;
+    }
+
+    function appendCookiesToURL() {
+        let fbc = getCookie('_fbc');
+        let fbp = getCookie('_fbp');
+
+        if (!fbc && !fbp) return; // Exit if no cookies exist
+
+        let url = new URL(window.location.href);
+        let params = new URLSearchParams(url.search);
+
+        if (fbc) {
+            params.set('_fbc', fbc);
+            let fbcInput = document.getElementById("text-00000628");
+            console.log("FBC LOG ", fbcInput);
+            if (fbcInput) fbcInput.value = fbc;
+        }
+        if (fbp) {
+            params.set('_fbp', fbp);
+            let fbpInput = document.getElementById("text-0000062a");
+            console.log("FBP LOG ", fbpInput);
+            if (fbpInput) fbpInput.value = fbp;
+        }
+
+        url.search = params.toString(); // Update search params
+        window.history.replaceState({}, '', url.toString()); // Update URL
+    }
+
+    // Run once when page is fully loaded
+    appendCookiesToURL();
+});
+
